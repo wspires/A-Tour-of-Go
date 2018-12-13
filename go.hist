@@ -1,0 +1,46 @@
+sudo apt-get install golang
+
+go build exercises-loops-functions.go
+go help 
+go help build
+go build exercises-loops-functions.go
+./exercises-loops-functions 
+
+go build exercises-loops-functions.go && ./exercises-loops-functions
+go build switch.go && ./switch
+go build switch-evaluation-order.go && ./switch-evaluation-order
+go build switch-with-no-condition.go && ./switch-with-no-condition
+go build defer.go && ./defer
+go run defer.go
+
+sudo apt-get install gccgo
+gccgo defer.go 
+./a.out 
+
+// https://golang.org/doc/code.html
+export PATH=$PATH:$(go env GOPATH)/bin
+export GOPATH=$(go env GOPATH)
+
+mkdir -p $GOPATH/src/github.com/user
+mkdir $GOPATH/src/github.com/user/hello
+echo "package main import "fmt" func main() { fmt.Printf("Hello, world.\n") }" > $GOPATH/src/github.com/user/hello/hello.go
+go install github.com/user/hello    # Or: cd $GOPATH/src/github.com/user/hello; go install
+$GOPATH/bin/hello
+mkdir $GOPATH/src/github.com/user/stringutil
+vim $GOPATH/src/github.com/user/stringutil/reverse.go
+go build github.com/user/stringutil
+vim $GOPATH/src/github.com/user/hello/hello.go    # Use reverse
+go install github.com/user/hello
+hello
+
+go install github.com/user/stringutil
+ls pkg
+
+// You write a test by creating a file with a name ending in _test.go that contains functions named TestXXX with signature func (t *testing.T).
+vim $GOPATH/src/github.com/user/stringutil/reverse_test.go
+go test github.com/user/stringutil
+go test
+
+// The go tool uses this property to automatically fetch packages from remote repositories.
+go get github.com/golang/example/hello
+hello
